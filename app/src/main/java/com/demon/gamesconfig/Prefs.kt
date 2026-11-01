@@ -27,4 +27,18 @@ object Prefs {
 
     fun aimColor(c: Context): Int = sp(c).getInt("aim_color", -0x10000) // قرمز
     fun setAimColor(c: Context, v: Int) { sp(c).edit().putInt("aim_color", v).apply() }
+
+    /** جای نقطه‌ی Aim Assist — جابه‌جایی از مرکز صفحه (px) */
+    fun dotDx(c: Context): Int = sp(c).getInt("dot_dx", 0)
+    fun setDotDx(c: Context, v: Int) { sp(c).edit().putInt("dot_dx", v).apply() }
+    fun dotDy(c: Context): Int = sp(c).getInt("dot_dy", 0)
+    fun setDotDy(c: Context, v: Int) { sp(c).edit().putInt("dot_dy", v).apply() }
+
+    /** وال هک (فعلاً نمایشی) */
+    fun wallOn(c: Context): Boolean = sp(c).getBoolean("wall_on", false)
+    fun setWallOn(c: Context, v: Boolean) { sp(c).edit().putBoolean("wall_on", v).apply() }
+
+    /** موزیک تمرکز */
+    fun musicOn(c: Context): Boolean = sp(c).getBoolean("music_on", false)
+    fun setMusicOn(c: Context, v: Boolean) { sp(c).edit().putBoolean("music_on", v).apply() }
 }

@@ -2,6 +2,7 @@ package com.demon.gamesconfig
 
 import android.app.Activity
 import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -9,7 +10,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.provider.Settings
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -34,6 +40,10 @@ class MainActivity : Activity() {
     private val handler = Handler(Looper.getMainLooper())
     private var prevCpu: Pair<Long, Long>? = null
     private var checkingKey = false
+
+    // ژست باز کردن منو: ۳ بار، هر بار لمس صفحه با ۳ انگشت
+    private var tap3Count = 0
+    private var tap3Last = 0L
 
     private val cpuTick = object : Runnable {
         override fun run() {
@@ -68,7 +78,7 @@ class MainActivity : Activity() {
         tvCores.text = "پردازنده: ${Runtime.getRuntime().availableProcessors()} هسته"
 
         findViewById<Button>(R.id.btnBoost).setOnClickListener { boost() }
-        btnMenu.setOnClickListener { menuClicked() }
+        btnMenu.setOnClickListener { openMenu() }
 
         // اجازه‌ی نوتیفیکیشن برای سرویس میانبر (اندروید ۱۳+)
         if (Build.VERSION.SDK_INT >= 33) {
@@ -76,6 +86,32 @@ class MainActivity : Activity() {
                 requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 41)
             }
         }
+    }
+
+    /** ۳ بار لمس صفحه با ۳ انگشت = باز کردن منوی شناور */
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.actionMasked == MotionEvent.ACTION_POINTER_DOWN && ev.pointerCount == 3) {
+            val now = SystemClock.elapsedRealtime()
+            tap3Count = if (now - tap3Last < 2200) tap3Count + 1 else 1
+            tap3Last = now
+            if (tap3Count >= 3) {
+                tap3Count = 0
+                vibrate()
+                openMenu()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun vibrate() {
+        try {
+            val v: Vibrator = if (Build.VERSION.SDK_INT >= 31) {
+                (getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager).defaultVibrator
+            } else {
+                @Suppress("DEPRECATION") getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            }
+            v.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 30, 60, 30), -1))
+        } catch (_: Exception) {}
     }
 
     override fun onResume() {
@@ -176,8 +212,8 @@ class MainActivity : Activity() {
         } catch (_: Exception) { 0 }
     }
 
-    /** دکمه‌ی «منو» — روشن/خاموش کردن میانبر شناور */
-    private fun menuClicked() {
+    /** باز کردن منوی شناور — اگر سرویس خاموش است اول روشنش کن */
+    private fun openMenu() {
         if (!Settings.canDrawOverlays(this)) {
             Toast.makeText(this, "اول اجازه‌ی «نمایش روی برنامه‌های دیگر» را بده", Toast.LENGTH_LONG).show()
             try {
@@ -187,26 +223,27 @@ class MainActivity : Activity() {
             }
             return
         }
-        if (OverlayService.running) {
-            stopService(Intent(this, OverlayService::class.java))
-            Toast.makeText(this, "میانبر شناور بسته شد", Toast.LENGTH_SHORT).show()
-        } else {
+        if (!OverlayService.running) {
             try {
-                startForegroundService(Intent(this, OverlayService::class.java))
-                Toast.makeText(this, "میانبر شناور روشن شد — آیکون گوشه‌ی صفحه است", Toast.LENGTH_LONG).show()
+                startForegroundService(
+                    Intent(this, OverlayService::class.java).setAction(OverlayService.ACTION_SHOW_MENU))
+                Toast.makeText(this, "منوی شناور باز شد 🔥", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                Toast.makeText(this, "خطا در راه‌اندازی میانبر: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "خطا در راه‌اندازی منو: ${e.message}", Toast.LENGTH_LONG).show()
             }
+        } else {
+            startService(
+                Intent(this, OverlayService::class.java).setAction(OverlayService.ACTION_TOGGLE_MENU))
         }
         handler.postDelayed({ refreshMenuState() }, 400)
     }
 
     private fun refreshMenuState() {
         if (OverlayService.running) {
-            tvMenuState.text = "میانبر شناور روشن است — آیکون روی صفحه‌ی همه‌ی برنامه‌ها هست"
-            btnMenu.text = "بستن منو"
+            tvMenuState.text = "منو روشن است — ۳ بار با ۳ انگشت روی صفحه بزن یا روی آیکون گوشه بزن"
+            btnMenu.text = "باز کردن منو"
         } else {
-            tvMenuState.text = "میانبر شناور خاموش است — با «منو» روشنش کن"
+            tvMenuState.text = "برای باز شدن منو: ۳ بار با ۳ انگشت روی صفحه بزن (یا دکمه‌ی بالا)"
             btnMenu.text = "منو"
         }
     }
