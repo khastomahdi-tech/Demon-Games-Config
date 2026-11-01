@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- هدر -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:contentDescription="@string/app_name" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DEMON GAMES CONFIG"
+                        android:textColor="@color/tx"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/mut"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- وضعیت حساب -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="وضعیت حساب"
+                    android:textColor="@color/mut"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="در حال بررسی..."
+                    android:textColor="@color/ok"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- CPU -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="مصرف پردازنده (CPU)"
+                        android:textColor="@color/tx"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvCores"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/mut"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCpu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="—"
+                    android:textColor="@color/accent"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/pbCpu"
+                    style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="@color/accent"
+                    android:progressBackgroundTint="@color/card2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="درصد درگیری پردازنده‌ی گوشی — هنگام بازی اگر این عدد بالای ۹۰ بود، از دکمه‌ی کاهش لگ استفاده کن"
+                    android:textColor="@color/mut"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- RAM -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="مصرف حافظه (RAM)"
+                    android:textColor="@color/tx"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvRam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="—"
+                    android:textColor="@color/accent"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/pbRam"
+                    style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="@color/accent"
+                    android:progressBackgroundTint="@color/card2" />
+
+                <TextView
+                    android:id="@+id/tvRamInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/mut"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnBoost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_accent"
+                android:text="⚡ کاهش لگ"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:padding="13dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- تب پایین: منو -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/card"
+        android:padding="12dp">
+
+        <Button
+            android:id="@+id/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_accent"
+            android:text="منو"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/tvMenuState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="میانبر شناور خاموش است — با «منو» روشنش کن"
+            android:textColor="@color/mut"
+            android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>

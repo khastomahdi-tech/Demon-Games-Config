@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="64dp"
+        android:paddingBottom="24dp">
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="DEMON GAMES CONFIG"
+            android:textColor="@color/tx"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="کاهش لگ و بهینه‌سازی بازی‌ها"
+            android:textColor="@color/mut"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:text="کلید دسترسی را وارد کن"
+            android:textColor="@color/tx"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/edKey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_field"
+            android:padding="13dp"
+            android:hint="DG-XXXX-XXXX-XXXX"
+            android:textColorHint="@color/mut"
+            android:textColor="@color/tx"
+            android:textSize="15sp"
+            android:fontFamily="monospace"
+            android:inputType="textCapCharacters"
+            android:maxLength="24"
+            android:maxLines="1"
+            android:importantForAutofill="no" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_accent"
+            android:text="ورود"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:padding="13dp" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/danger"
+            android:textSize="13sp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:text="کلید را از فروشنده‌ی خودت بگیر"
+            android:textColor="@color/mut"
+            android:textSize="11sp" />
+    </LinearLayout>
+</ScrollView>
